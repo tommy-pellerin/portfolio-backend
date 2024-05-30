@@ -380,6 +380,11 @@ export interface ApiProjectProject extends Schema.CollectionType {
     slug: Attribute.UID<'api::project.project', 'title'>;
     content: Attribute.RichText;
     images: Attribute.Media;
+    skills: Attribute.Relation<
+      'api::project.project',
+      'manyToMany',
+      'api::skill.skill'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -391,6 +396,44 @@ export interface ApiProjectProject extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::project.project',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiSkillSkill extends Schema.CollectionType {
+  collectionName: 'skills';
+  info: {
+    singularName: 'skill';
+    pluralName: 'skills';
+    displayName: 'Skills';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String;
+    slug: Attribute.UID<'api::skill.skill', 'title'>;
+    logo: Attribute.Media;
+    projects: Attribute.Relation<
+      'api::skill.skill',
+      'manyToMany',
+      'api::project.project'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::skill.skill',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::skill.skill',
       'oneToOne',
       'admin::user'
     > &
@@ -835,6 +878,7 @@ declare module '@strapi/types' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'api::project.project': ApiProjectProject;
+      'api::skill.skill': ApiSkillSkill;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;

@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "projects",
+  "collectionName": "skills",
   "info": {
-    "singularName": "project",
-    "pluralName": "projects",
-    "displayName": "Projects",
+    "singularName": "skill",
+    "pluralName": "skills",
+    "displayName": "Skills",
     "description": ""
   },
   "options": {
@@ -15,32 +15,26 @@
     "title": {
       "type": "string"
     },
-    "description": {
-      "type": "text"
-    },
-    "release_date": {
-      "type": "date"
-    },
     "slug": {
       "type": "uid",
       "targetField": "title"
     },
-    "content": {
-      "type": "richtext"
-    },
-    "images": {
+    "logo": {
       "type": "media",
-      "multiple": true,
+      "multiple": false,
       "required": false,
       "allowedTypes": [
-        "images"
+        "images",
+        "files",
+        "videos",
+        "audios"
       ]
     },
-    "skills": {
+    "projects": {
       "type": "relation",
       "relation": "manyToMany",
-      "target": "api::skill.skill",
-      "mappedBy": "projects"
+      "target": "api::project.project",
+      "inversedBy": "skills"
     }
   }
 }
